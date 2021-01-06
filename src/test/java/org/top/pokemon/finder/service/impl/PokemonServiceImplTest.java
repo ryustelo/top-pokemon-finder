@@ -9,6 +9,7 @@ import org.top.pokemon.finder.client.PokemonApiClient;
 import org.top.pokemon.finder.client.entities.GameIndex;
 import org.top.pokemon.finder.client.entities.PokemonResource;
 import org.top.pokemon.finder.client.entities.Version;
+import org.top.pokemon.finder.repository.PokemonRepository;
 import org.top.pokemon.finder.service.dto.Pokemon;
 
 import java.util.ArrayList;
@@ -38,6 +39,9 @@ public class PokemonServiceImplTest {
     @Mock
     private PokemonApiClient pokemonApiClient;
 
+    @Mock
+    private PokemonRepository pokemonRepository;
+
     @InjectMocks
     private PokemonServiceImpl pokemonService;
 
@@ -62,7 +66,6 @@ public class PokemonServiceImplTest {
         assertEquals(RED_VERSIONED_POKEMON_ID, result.get(0).getId());
         assertEquals(IS_DEFAULT, result.get(0).getIsDefault());
         assertEquals(NAME, result.get(0).getName());
-        assertEquals(ORDER, result.get(0).getOrder());
         assertEquals(WEIGHT, result.get(0).getWeight());
     }
 

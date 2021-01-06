@@ -27,12 +27,12 @@ class PokemonApiClientImpl implements PokemonApiClient {
 
     @Override
     public List<PokemonResource> getPokemons() {
-        List<PokemonResource> pokemonsList = new ArrayList<>();
+        List<PokemonResource> pokemonList = new ArrayList<>();
 
         final PokemonResourceList pokemonResourceList =
                 this.restTemplate.getForObject(apiPath, PokemonResourceList.class);
         pokemonResourceList.getResults().forEach(p ->
-                pokemonsList.add(this.restTemplate.getForObject(p.getUrl(), PokemonResource.class)));
-        return pokemonsList;
+                pokemonList.add(this.restTemplate.getForObject(p.getUrl(), PokemonResource.class)));
+        return pokemonList;
     }
 }

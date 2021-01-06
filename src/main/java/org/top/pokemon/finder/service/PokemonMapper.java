@@ -12,7 +12,6 @@ public class PokemonMapper {
                 .id(pokemonResource.getId())
                 .isDefault(pokemonResource.getIsDefault())
                 .name(pokemonResource.getName())
-                .order(pokemonResource.getOrder())
                 .weight(pokemonResource.getWeight())
                 .build();
     }
