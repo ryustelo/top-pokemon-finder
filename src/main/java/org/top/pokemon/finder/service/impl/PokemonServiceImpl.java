@@ -31,16 +31,33 @@ class PokemonServiceImpl implements PokemonService {
 
     @Override
     public List<Pokemon> getPokemonsByWeight() {
-        List<Pokemon> pokemonListByWeight = new ArrayList<>();
+        List<Pokemon> pokemonList = new ArrayList<>();
 
-        List<PokemonResource> pokemonList = this.pokemonApiClient.getPokemons();
-        pokemonList.stream()
+        List<PokemonResource> pokemonApiList = this.pokemonApiClient.getPokemons();
+        pokemonApiList.stream()
                 .filter(p -> p.getGameIndices().stream()
                         .anyMatch((gi -> RED_VERSION_NAME.equals(gi.getVersion().getName()))))
-                .forEach(p -> pokemonListByWeight.add(map(p)));
-        pokemonListByWeight.forEach(this.pokemonRepository::save);
+                .forEach(p -> pokemonList.add(map(p)));
+        pokemonList.forEach(this.pokemonRepository::save);
 
         return this.pokemonRepository.findAllByOrderByWeightDesc()
+                .stream()
+                .limit(RESPONSE_SIZE)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Pokemon> getPokemonsByHeight() {
+        List<Pokemon> pokemonList = new ArrayList<>();
+
+        List<PokemonResource> pokemonApiList = this.pokemonApiClient.getPokemons();
+        pokemonApiList.stream()
+                .filter(p -> p.getGameIndices().stream()
+                        .anyMatch((gi -> RED_VERSION_NAME.equals(gi.getVersion().getName()))))
+                .forEach(p -> pokemonList.add(map(p)));
+        pokemonList.forEach(this.pokemonRepository::save);
+
+        return this.pokemonRepository.findAllByOrderByHeightDesc()
                 .stream()
                 .limit(RESPONSE_SIZE)
                 .collect(Collectors.toList());

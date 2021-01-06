@@ -11,6 +11,7 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/pokemons/weight").permitAll()
+                .antMatchers("/pokemons/height").permitAll()
                 .antMatchers("/actuator/*").permitAll()
                 .anyRequest().authenticated();
     }

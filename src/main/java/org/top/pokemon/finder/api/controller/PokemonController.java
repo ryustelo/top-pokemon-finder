@@ -28,4 +28,11 @@ public class PokemonController {
                 pokemonService.getPokemonsByWeight(),
                 HttpStatus.OK);
     }
+
+    @GetMapping("/height")
+    public ResponseEntity<List<Pokemon>> getPokemonsByHeight() {
+        return new ResponseEntity<>(
+                pokemonService.getPokemonsByHeight(),
+                HttpStatus.OK);
+    }
 }
