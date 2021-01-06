@@ -7,6 +7,6 @@ import java.util.List;
 public interface PokemonService {
 
     List<Pokemon> getPokemonsByWeight();
-
     List<Pokemon>  getPokemonsByHeight();
+    List<Pokemon> getPokemonsByBaseExperience();
 }

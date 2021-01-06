@@ -31,14 +31,7 @@ class PokemonServiceImpl implements PokemonService {
 
     @Override
     public List<Pokemon> getPokemonsByWeight() {
-        List<Pokemon> pokemonList = new ArrayList<>();
-
-        List<PokemonResource> pokemonApiList = this.pokemonApiClient.getPokemons();
-        pokemonApiList.stream()
-                .filter(p -> p.getGameIndices().stream()
-                        .anyMatch((gi -> RED_VERSION_NAME.equals(gi.getVersion().getName()))))
-                .forEach(p -> pokemonList.add(map(p)));
-        pokemonList.forEach(this.pokemonRepository::save);
+        loadPokemonsToRepository();
 
         return this.pokemonRepository.findAllByOrderByWeightDesc()
                 .stream()
@@ -48,6 +41,25 @@ class PokemonServiceImpl implements PokemonService {
 
     @Override
     public List<Pokemon> getPokemonsByHeight() {
+        loadPokemonsToRepository();
+
+        return this.pokemonRepository.findAllByOrderByHeightDesc()
+                .stream()
+                .limit(RESPONSE_SIZE)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Pokemon> getPokemonsByBaseExperience() {
+        loadPokemonsToRepository();
+
+        return this.pokemonRepository.findAllByOrderByBaseExperienceDesc()
+                .stream()
+                .limit(RESPONSE_SIZE)
+                .collect(Collectors.toList());
+    }
+
+    private void loadPokemonsToRepository() {
         List<Pokemon> pokemonList = new ArrayList<>();
 
         List<PokemonResource> pokemonApiList = this.pokemonApiClient.getPokemons();
@@ -56,10 +68,5 @@ class PokemonServiceImpl implements PokemonService {
                         .anyMatch((gi -> RED_VERSION_NAME.equals(gi.getVersion().getName()))))
                 .forEach(p -> pokemonList.add(map(p)));
         pokemonList.forEach(this.pokemonRepository::save);
-
-        return this.pokemonRepository.findAllByOrderByHeightDesc()
-                .stream()
-                .limit(RESPONSE_SIZE)
-                .collect(Collectors.toList());
     }
 }

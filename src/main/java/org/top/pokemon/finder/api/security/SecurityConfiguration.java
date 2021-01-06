@@ -12,6 +12,7 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/pokemons/weight").permitAll()
                 .antMatchers("/pokemons/height").permitAll()
+                .antMatchers("/pokemons/baseExperience").permitAll()
                 .antMatchers("/actuator/*").permitAll()
                 .anyRequest().authenticated();
     }

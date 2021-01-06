@@ -35,4 +35,11 @@ public class PokemonController {
                 pokemonService.getPokemonsByHeight(),
                 HttpStatus.OK);
     }
+
+    @GetMapping("/baseExperience")
+    public ResponseEntity<List<Pokemon>> getPokemonsByBaseExperience() {
+        return new ResponseEntity<>(
+                pokemonService.getPokemonsByBaseExperience(),
+                HttpStatus.OK);
+    }
 }
